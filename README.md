@@ -1,2 +1,2 @@
-# inf331s12023---Tarea-1--Validaci-n-y-Verificaci-n
-primer commit
+# inf331s12023---Tarea-1--Validacion-y-Verificacion
+segundo commit de prueba
