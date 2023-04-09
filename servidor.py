@@ -20,6 +20,26 @@ sock.listen()
 clients = {}
 
 
+def descifrar(mensaje_cifrado, desplazamiento):
+    mensaje_descifrado = ""
+    try:
+        if len(mensaje_cifrado) > 100:
+            raise ValueError("El mensaje es demasiado largo. Maximo permitido: 100 caracteres.")
+        for letra in mensaje_cifrado:
+            if letra.isalpha():
+                if letra.isupper():
+                    mensaje_descifrado += chr((ord(letra) - desplazamiento - 65) % 26 + 65)
+                else:
+                    mensaje_descifrado += chr((ord(letra) - desplazamiento - 97) % 26 + 97)
+            elif letra.isdigit():
+                mensaje_descifrado += str((int(letra) - desplazamiento) % 10)
+            else:
+                mensaje_descifrado += letra
+    except ValueError as e:
+        print(f"Error: {e}")
+    return mensaje_descifrado
+
+
 # Función para enviar un mensaje a todos los clientes conectados
 def broadcast(msg, prefix=""):
     #msg_cifrado = cifrar(msg.decode(),3)
