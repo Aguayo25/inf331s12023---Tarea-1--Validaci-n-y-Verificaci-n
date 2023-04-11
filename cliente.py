@@ -68,15 +68,14 @@ def receive():
 def send_message(event=None):
     msg = my_msg.get()
     my_msg.set("")
-    try:
-        is_server_online()
+    if is_server_online():
         s.send(bytes(cifrar(msg,3), "utf-8"))
         
-    except:
-        logging.error("El servidor no esta disponible en este momento.")
+    else:
+        logging.error("El servidor no está disponible en este momento.")
         messagebox.showinfo(
             title="Error de conexion",
-            message="El servidor no esta disponible en este momento.",
+            message="El servidor no está disponible en este momento.",
             icon='error',
         )
     
@@ -91,8 +90,9 @@ def is_server_online():
     host = 'localhost' # o la dirección IP del servidor
     port = 8080 # el puerto en el que el servidor está escuchando
     try:
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.connect((host, port))
-        #s.shutdown(socket.SHUT_RDWR)
+        s.shutdown(socket.SHUT_RDWR)
         return True
     except:
         return False
@@ -126,8 +126,8 @@ entry_field.pack()
 send_button = Button(window, text="Enviar", font="Arial", fg="white", bg="blue", relief="ridge", command=send_message)
 send_button.pack()
 
-close_button = Button(window, text="Cerrar ventana",font="Arial", bg="red", fg="white", relief="ridge", command=on_closing)
-close_button.pack(side="right")
+close_button = Button(window, text="Cerrar ventana y desconectar sesión",font="Arial", bg="red", fg="white", relief="ridge", command=on_closing)
+close_button.pack()
 
 
 
@@ -135,19 +135,19 @@ close_button.pack(side="right")
 host = "localhost"
 port = 8080
 
-s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
 try:
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.connect((host, port))
-    #is_server_online()
-    print("El servidor está activo")
-except:
-    logging.error("El servidor no esta disponible en este momento.")
+except Exception:
+    logging.error("El servidor no está disponible en este momento.")
     messagebox.showinfo(
         title="Error de conexion",
-        message="El servidor no esta disponible en este momento.",
+        message="El servidor no está disponible en este momento.",
         icon='error',
     )
 
+        
 
 
 window.protocol("WM_DELETE_WINDOW", on_closing)

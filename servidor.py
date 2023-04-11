@@ -10,8 +10,8 @@ logging.basicConfig(filename='registro_session.log',level=logging.DEBUG, format=
 def descifrar(mensaje_cifrado, desplazamiento):
     mensaje_descifrado = ""
     try:
-        if len(mensaje_cifrado) > 100:
-            raise ValueError("El mensaje es demasiado largo. Maximo permitido: 100 caracteres.")
+        if len(mensaje_cifrado) > 255:
+            raise ValueError("El mensaje es demasiado largo. Maximo permitido: 255 caracteres.")
         for letra in mensaje_cifrado:
         # Verificar si la letra es un caracter ASCII imprimible
             if ord(letra) >= 32 and ord(letra) <= 126:
@@ -21,7 +21,7 @@ def descifrar(mensaje_cifrado, desplazamiento):
             mensaje_descifrado += letra_descifrada
     except ValueError as e:
         print(f"Error: {e}")
-        logging.error("El mensaje es demasiado largo. Maximo permitido: 100 caracteres.")
+        logging.error("El mensaje es demasiado largo. Maximo permitido: 255 caracteres.")
     return mensaje_descifrado
 
 
