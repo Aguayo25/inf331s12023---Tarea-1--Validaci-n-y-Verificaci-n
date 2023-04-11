@@ -33,7 +33,13 @@ def broadcast(msg, prefix=""):
 
 # Función para manejar a cada cliente conectado
 def handle_clients(conn):
-    name = descifrar(conn.recv(1024).decode(),3)
+    try:
+        name = descifrar(conn.recv(1024).decode(),3)
+    except ConnectionResetError as e:
+        print("Se ha producido un error de conexión: ", e)
+        logging.error(f"Se ha producido un error de conexión: ")
+        return
+    #name = descifrar(conn.recv(1024).decode(),3)
     print(name)
     welcome = f"Bienvenido {name}. Un gusto verte"
     conn.send(bytes(welcome,"utf8"))
@@ -47,7 +53,6 @@ def handle_clients(conn):
             msg = conn.recv(1024).decode()
             print(msg)
             msg_descifrado = descifrar(msg,3)
-       
             broadcast(bytes(f"{name} dice: {msg_descifrado}","utf8"))
             logging.info(name+ ' envio un mensaje')
         except:
@@ -60,13 +65,10 @@ def handle_clients(conn):
 # Función para aceptar conexiones entrantes de los clientes
 def accept_client_connection():
     while True:
-        try:
-            client_conn, client_address = sock.accept()
-            print(client_address, " se conecto")
-            client_conn.send(bytes("Bienvenido a la sala de chat, por favor ingresa tu nombre:","utf8"))
-            Thread(target = handle_clients,args=(client_conn,)).start()
-        except Exception:
-            logging.error('Error: usuario no puede entrar!!')
+        client_conn, client_address = sock.accept()
+        print(client_address, " se conecto")
+        client_conn.send(bytes("Bienvenido a la sala de chat, por favor ingresa tu nombre:","utf8"))
+        Thread(target = handle_clients,args=(client_conn,)).start()
 
 
 
