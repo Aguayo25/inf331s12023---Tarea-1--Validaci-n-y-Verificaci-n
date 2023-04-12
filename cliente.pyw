@@ -1,10 +1,31 @@
+
+# MIT License
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+# THE SOFTWARE.
+
+
 # import required libraries
 import socket
 from threading import Thread
 import tkinter as tk
 from tkinter import *
 from tkinter import messagebox
-
 
 
 import logging
@@ -83,9 +104,6 @@ def send_message(event=None):
 def on_closing(event=None):
     s.close()
     window.quit()
-    #my_msg.set("quit")
-    #send_message()
-
 
 def is_server_online():
     host = 'localhost' # o la dirección IP del servidor
@@ -96,7 +114,6 @@ def is_server_online():
         return True
     except:
         return False
-
 
 
 window = Tk()
@@ -130,15 +147,12 @@ close_button = Button(window, text="Cerrar ventana",font="Arial", bg="red", fg="
 close_button.pack(side="right")
 
 
-
-
 host = "localhost"
 port = 8080
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 try:
     s.connect((host, port))
-    #is_server_online()
     print("El servidor está activo")
 except:
     logging.error("El servidor no esta disponible en este momento.")

@@ -1,9 +1,30 @@
+# MIT License
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+# THE SOFTWARE.
+
+
+
 import socket
 import logging
 from threading import Thread
 
 logging.basicConfig(filename='registro_session.log',level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s',datefmt='%Y-%m-%d-%H:%M:%S')
-
 
 
 # Función para descifrar un mensaje
@@ -39,8 +60,6 @@ def handle_clients(conn):
         print("Se ha producido un error de conexión: ", e)
         logging.error(f"Se ha producido un error de conexión: ")
         return
-    #name = descifrar(conn.recv(1024).decode(),3)
-    print(name)
     welcome = f"Bienvenido {name}. Un gusto verte"
     conn.send(bytes(welcome,"utf8"))
     msg = name + " ha entrado al chat"
@@ -72,18 +91,10 @@ def accept_client_connection():
 
 
 
-
-
-# Crear un socket para el servidor
-
-
-
-
-
 # Definir el puerto y la dirección del servidor
 clients = {}
 PORT = 8080
-#SERVER = socket.gethostbyname(socket.gethostname())
+
 
 try:
 # Asociar el socket al puerto y dirección del servidor
@@ -97,11 +108,7 @@ try:
 
 except Exception:
     logging.error("NO SE ENCUENTRA SERVIDOR")
-# Lista para almacenar los clientes conectados
 
-
-
-# Iniciar la función para aceptar conexiones entrantes
 
 
 
