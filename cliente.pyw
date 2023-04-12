@@ -154,14 +154,10 @@ port = 8080
 try:
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.connect((host, port))
-<<<<<<< HEAD:cliente.pyw
     print("El servidor está activo")
-except:
-    logging.error("El servidor no esta disponible en este momento.")
-=======
+
 except Exception:
     logging.error("El servidor no está disponible en este momento.")
->>>>>>> 593482f32cdce2bfb90fd3c4995c78e1e3fb4a62:cliente.py
     messagebox.showinfo(
         title="Error de conexion",
         message="El servidor no está disponible en este momento.",
